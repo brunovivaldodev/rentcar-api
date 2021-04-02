@@ -1,11 +1,13 @@
-import Category from '@modules/cars/model/Category'
+import {getRepository, Repository} from 'typeorm'
+
+import Category from '@modules/cars/entities/Category'
 
 import ICategoryRepository from '../ICategoriesRepository'
 import ICreateCategoryDTO from '../dtos/ICreateCategoryDTO'
 
 class CategoryRepository implements ICategoryRepository {
 
-  private categories: Category[]
+  private repository : Repository<Category>
 
   private static INSTANCE: CategoryRepository
 
@@ -17,21 +19,14 @@ class CategoryRepository implements ICategoryRepository {
   }
 
   private constructor() {
-    this.categories = []
+    this.repository = getRepository(Category)
   }
 
   public create({ name, description }: ICreateCategoryDTO): Category {
 
 
-    let category = new Category()
-
-    Object.assign(category, {
-      name,
-      description,
-      created_at: new Date()
-    })
-
-    this.categories.push(category)
+    const category = this.repository.create({name,description})
+      await this.repository.save(category)
     return category
   }
 
