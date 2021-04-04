@@ -2,7 +2,7 @@ import "reflect-metadata"
 import "./database"
 import './shared/container'
 import express from 'express'
-import router from './routes'
+import router from '@shared/routes'
 import swaggerUi from 'swagger-ui-express'
 import swaggerFile from './swagger.json'
 
