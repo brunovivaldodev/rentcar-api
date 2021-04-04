@@ -1,4 +1,4 @@
-import {getRepository, Repository} from 'typeorm'
+import { getRepository, Repository } from 'typeorm'
 
 import Category from '@modules/cars/entities/Category'
 
@@ -7,35 +7,26 @@ import ICreateCategoryDTO from '../dtos/ICreateCategoryDTO'
 
 class CategoryRepository implements ICategoryRepository {
 
-  private repository : Repository<Category>
-
-  private static INSTANCE: CategoryRepository
-
-  public static getInstance(): CategoryRepository {
-    if (!CategoryRepository.INSTANCE){
-      CategoryRepository.INSTANCE = new CategoryRepository()
-    }
-    return CategoryRepository.INSTANCE
-  }
-
-  private constructor() {
+  private repository: Repository<Category>
+   constructor() {
     this.repository = getRepository(Category)
   }
 
-  public create({ name, description }: ICreateCategoryDTO): Category {
-
-
-    const category = this.repository.create({name,description})
-      await this.repository.save(category)
+  public async create({ name, description }: ICreateCategoryDTO): Promise<Category> {
+    const category = this.repository.create({ name, description })
+    await this.repository.save(category)
     return category
   }
 
-  public index(): Category[] {
-    return this.categories
+  public async index(): Promise<Category[]> {
+    const categories = await this.repository.find()
+    return categories
   }
 
-  public findByName(name: string): Category | undefined {
-    const category = this.categories.find((category) => category.name === name)
+  public async findByName(name: string): Promise<Category | undefined> {
+    const category = await this.repository.findOne({
+      where : {name}
+    })
 
     return category
 
