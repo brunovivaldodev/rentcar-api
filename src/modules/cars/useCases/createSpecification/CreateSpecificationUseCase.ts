@@ -1,4 +1,5 @@
 import ISpecificationRepository from "@modules/cars/repositories/ISpecificationsRepository";
+import AppError from "@shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
 
 interface IRequest {
@@ -14,7 +15,7 @@ class CreateSpecificationUseCase {
       const specificationAlreadyExists = await this.specificationsRepository.findByName(name)
 
       if(specificationAlreadyExists){
-        throw new Error('Specification Already Exists')
+        throw new AppError('Specification Already Exists',400)
       }
       const specification = await this.specificationsRepository.create({name,description})
       return specification
