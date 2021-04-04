@@ -3,9 +3,9 @@ import Category from '../entities/Category'
 import ICreateCategoryDTO from './dtos/ICreateCategoryDTO'
 
 interface ICategoryRepository {
-  create(data : ICreateCategoryDTO) : Category,
-  index() : Category[],
-  findByName(name:string) : Category | undefined;
+  create(data : ICreateCategoryDTO) : Promise<Category>,
+  index() : Promise<Category[]>,
+  findByName(name:string) : Promise<Category | undefined>;
 }
 
 export default ICategoryRepository;

@@ -1,25 +1,27 @@
-import Category from "@modules/cars/model/Category";
+import Category from "@modules/cars/entities/Category";
 import ICategoryRepository from "@modules/cars/repositories/ICategoriesRepository";
-
+import { inject, injectable } from 'tsyringe'
 
 interface IRequest {
   name: string,
   description: string
 }
-
+@injectable()
 class CreateCategoryUseCase {
-  constructor(private categoryRepository: ICategoryRepository) { }
+  constructor(
+    @inject("CategoryRepository")
+    private categoryRepository: ICategoryRepository
+  ) { }
 
-  public execute({ name, description }: IRequest) : Category{
+  public async execute({ name, description }: IRequest): Promise<Category> {
 
-    const categoryAlreadyExists = this.categoryRepository.findByName(name);
+    const categoryAlreadyExists = await this.categoryRepository.findByName(name);
 
     if (categoryAlreadyExists) {
       throw new Error('Category Already Exists');
     }
 
-    const category = this.categoryRepository.create({ name, description });
-
+    const category = await this.categoryRepository.create({ name, description });
     return category;
   }
 }
