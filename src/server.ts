@@ -23,7 +23,7 @@ app.use((err:Error,resquest :Request,response :Response,next:NextFunction)=>{
 
   return response.status(500).json({
     status : 'error',
-    message : `Internal Error Server -${err.name}`
+    message : `Internal Error Server -${err.stack}`
   })
 })
 

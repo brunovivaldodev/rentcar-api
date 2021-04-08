@@ -1,5 +1,5 @@
 import User from '@modules/accounts/entities/User';
-import { getRepository, Repository } from 'typeorm'
+import { getRepository, Repository, UpdateResult } from 'typeorm'
 import UsersCreateDTO from '../../dtos/IUsersCreateDTO';
 import IUsersRepository from '../IUsersRepository';
 
@@ -11,9 +11,15 @@ class UserRepositories implements IUsersRepository {
   constructor() {
     this.repository = getRepository(User)
   }
-  async create({ name, email, password, driver_license }: UsersCreateDTO): Promise<User> {
 
-    const user = this.repository.create({name,email,password, driver_license});
+  async updateAvatar(id: string,avatar: string): Promise<UpdateResult> {
+    const user = await this.repository.update(id,{avatar})
+    return user
+  }
+
+  async create({ name, email, password, driver_license,avatar}: UsersCreateDTO): Promise<User> {
+
+    const user = this.repository.create({name,email,password, driver_license,avatar});
 
     await this.repository.save(user)
 

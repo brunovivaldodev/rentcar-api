@@ -7,7 +7,7 @@ import ImportCategoryController from '@modules/cars/useCases/importCategory/impo
 const router = Router()
 
 const upload = multer({
-  dest: './tmp'
+  dest: './tmp',
 })
 
 const createCategoryController = new CreateCategoryController()

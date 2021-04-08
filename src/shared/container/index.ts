@@ -15,7 +15,6 @@ container.registerSingleton<ISpecificationRepository>(
   "SpecificationRepository",SpecificationsRepository
 )
 
-
 container.registerSingleton<IUsersRepository>(
   "UserRepositories",UserRepositories
 )

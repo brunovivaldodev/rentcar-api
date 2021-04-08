@@ -8,13 +8,14 @@ interface IRequest {
   name: string,
   email: string,
   password: string,
-  driver_license: string
+  driver_license: string,
+  avatar?: string
 }
 @injectable()
 class CreateUserUseCase {
   constructor(@inject('UserRepositories')
   private usersRepository: IUsersRepository) { }
-  async execute({ name, email, password, driver_license }: IRequest) {
+  async execute({ name, email, password, driver_license,avatar }: IRequest) {
 
     const userAlreadyExists = await this.usersRepository.findByEmail(email);
 
@@ -23,13 +24,13 @@ class CreateUserUseCase {
     }
 
     const passwordHash = await hash(password, 8)
-
     const user = await this.usersRepository.create(
       {
         name,
         email,
         password: passwordHash,
-        driver_license
+        driver_license,
+        avatar
       })
 
     return user
