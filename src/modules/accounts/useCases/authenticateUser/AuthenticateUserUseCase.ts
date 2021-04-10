@@ -3,6 +3,7 @@ import { compare } from "bcrypt";
 import { inject, injectable } from "tsyringe";
 import {sign} from 'jsonwebtoken'
 import AuthConfig from '@config/auth'
+import AppError from "@shared/errors/AppError";
 
 interface IRequest{
   email : string,
@@ -26,13 +27,13 @@ class AuthenticateUserUseCase {
     const user =await this.usersRepository.findByEmail(email);
 
     if(!user){
-      throw new Error('Email or Password Incorret')
+      throw new AppError('Email or Password Incorret')
     }
 
     const passwordMatch = await compare(password, user.password)
 
     if(!passwordMatch){
-      throw new Error('Email or Password Incorret')
+      throw new AppError('Email or Password Incorret')
     }
 
     const {secret} = AuthConfig
