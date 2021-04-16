@@ -1,6 +1,6 @@
-import Specification from '../entities/Specification'
+import Specification from '../infra/typeorm/entities/Specification'
 
-import ICreateSpecificationDTO from './dtos/ICreateSpecificationDTO'
+import ICreateSpecificationDTO from '../dtos/ICreateSpecificationDTO'
 
 interface ISpecificationRepository {
   create(data : ICreateSpecificationDTO) : Promise<Specification>,

@@ -3,7 +3,7 @@ import UpdateUserAvatarController from '@modules/accounts/useCases/updateUserAva
 import {Router} from 'express'
 import multer from 'multer'
 import uploadConfig from '@config/upload'
-import ensureAuthenticated from 'middlwares/ensureAuthenticated';
+import ensureAuthenticated from '@shared/http/middlewares/ensureAuthenticated';
 
 const uploadAvatar = multer(uploadConfig('./tmp/avatar'))
 const router = Router()

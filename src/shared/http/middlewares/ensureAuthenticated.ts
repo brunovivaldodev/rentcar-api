@@ -1,5 +1,5 @@
 import authConfig from "@config/auth";
-import UserRepositories from "@modules/accounts/repositories/implementations/UserRepositories";
+import UserRepositories from "@modules/accounts/infra/typeorm/repositories/UserRepositories";
 import AppError from "@shared/errors/AppError";
 import { NextFunction, Request, Response } from "express";
 import { verify } from 'jsonwebtoken'

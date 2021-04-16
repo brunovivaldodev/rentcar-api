@@ -1,5 +1,5 @@
 import IUsersCreateDTO from "@modules/accounts/dtos/IUsersCreateDTO";
-import User from "@modules/accounts/entities/User";
+import User from "@modules/accounts/infra/typeorm/entities/User";
 import { UpdateResult } from "typeorm";
 import IUsersRepository from "../IUsersRepository";
 

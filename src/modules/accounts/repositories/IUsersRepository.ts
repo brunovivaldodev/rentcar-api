@@ -1,4 +1,4 @@
-import User from "../entities/User";
+import User from "../infra/typeorm/entities/User";
 import UsersCreateDTO from "../dtos/IUsersCreateDTO";
 import { UpdateResult } from "typeorm";
 
