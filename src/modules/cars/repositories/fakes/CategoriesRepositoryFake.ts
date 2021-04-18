@@ -1,5 +1,5 @@
 import Category from "@modules/cars/infra/typeorm/entities/Category";
-import ICreateCategoryDTO from "../dtos/ICreateCategoryDTO";
+import ICreateCategoryDTO from "@modules/cars/dtos/ICreateCategoryDTO";
 import ICategoryRepository from "../ICategoriesRepository";
 
 class CategoriesRepositoyFakes implements ICategoryRepository{

@@ -1,5 +1,5 @@
 import AppError from "@shared/errors/AppError"
-import Category from "../../entities/Category"
+import Category from "@modules/cars/infra/typeorm/entities/Category"
 import CategoriesRepositoyFakes from "../../repositories/fakes/CategoriesRepositoryFake"
 import CreateCategoryUseCase from "./CreateCategoryUseCase"
 
