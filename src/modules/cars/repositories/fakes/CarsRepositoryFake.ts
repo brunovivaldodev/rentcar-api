@@ -4,9 +4,10 @@ import ICarsRepository from "../ICarsRepository";
 
 
 class CarsRepositoryFakes implements ICarsRepository{
+
   public Cars : Car[] = []
 
-  public async create({name,brand,daily_rate,license_plate,description,fine_amount,category_id}: ICreateCarDTO): Promise<Car> {
+  public async create({name,brand,daily_rate,license_plate,description,fine_amount,category_id,avaliable}: ICreateCarDTO): Promise<Car> {
     const car = new Car()
 
     Object.assign(car,{
@@ -16,7 +17,8 @@ class CarsRepositoryFakes implements ICarsRepository{
       license_plate,
       description,
       fine_amount,
-      category_id
+      category_id,
+      avaliable
     })
 
     this.Cars.push(car)
@@ -24,9 +26,14 @@ class CarsRepositoryFakes implements ICarsRepository{
     return car
   }
 
-  async findByLicensePlate(license_plate: string): Promise<Car | undefined> {
+  public async findByLicensePlate(license_plate: string): Promise<Car | undefined> {
     const car = this.Cars.find((car) => car.license_plate === license_plate)
     return car
+  }
+
+  public async findAvailable(): Promise<Car[]> {
+    const cars = this.Cars.filter((car)=> car.avaliable === true )
+    return cars
   }
 
 }

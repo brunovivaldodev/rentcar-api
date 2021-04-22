@@ -59,7 +59,7 @@ describe("Create Car", () => {
        daily_rate : 100,
        description : "Description Car",
        fine_amount : 60,
-       license_plate : "ABCD"
+       license_plate : "ABCD",
      })
      expect(car.avaliable).toBe(true)
    })

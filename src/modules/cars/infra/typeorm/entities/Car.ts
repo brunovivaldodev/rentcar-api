@@ -13,7 +13,7 @@ class Car {
   description: string;
 
   @Column()
-  avaliable: true;
+  avaliable: boolean;
 
   @Column()
   daily_rate: number;
@@ -42,6 +42,7 @@ class Car {
 
   constructor(){
     this.id = uuidV4()
+    this.avaliable = true
   }
 }
 
