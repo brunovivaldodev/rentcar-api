@@ -1,9 +1,9 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import {v4 as uuidV4} from 'uuid'
 import Category from './Category';
 @Entity("cars")
 class Car {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('uuid')
   id : string;
 
   @Column()
@@ -41,7 +41,6 @@ class Car {
   updated_at? : Date
 
   constructor(){
-    this.id = uuidV4()
     this.avaliable = true
   }
 }
