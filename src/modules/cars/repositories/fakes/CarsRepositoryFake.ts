@@ -3,14 +3,14 @@ import Car from "@modules/cars/infra/typeorm/entities/Car";
 import ICarsRepository from "../ICarsRepository";
 
 
-class CarsRepositoryFakes implements ICarsRepository{
+class CarsRepositoryFakes implements ICarsRepository {
 
-  public Cars : Car[] = []
+  public Cars: Car[] = []
 
-  public async create({name,brand,daily_rate,license_plate,description,fine_amount,category_id,avaliable}: ICreateCarDTO): Promise<Car> {
+  public async create({ name, brand, daily_rate, license_plate, description, fine_amount, category_id, avaliable }: ICreateCarDTO): Promise<Car> {
     const car = new Car()
 
-    Object.assign(car,{
+    Object.assign(car, {
       name,
       brand,
       daily_rate,
@@ -32,10 +32,13 @@ class CarsRepositoryFakes implements ICarsRepository{
   }
 
   public async findAvailable(): Promise<Car[]> {
-    const cars = this.Cars.filter((car)=> car.avaliable === true )
+    const cars = this.Cars.filter((car) => car.avaliable === true)
     return cars
   }
-
+  public async findById(id: string): Promise<Car | undefined> {
+    const car = this.Cars.find(car => car.id === id)
+    return car
+  }
 }
 
 

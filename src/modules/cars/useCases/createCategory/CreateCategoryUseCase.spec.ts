@@ -26,11 +26,6 @@ describe("CreateCategory", () => {
     expect(category).toHaveProperty("name")
     expect(category).toHaveProperty("description")
 
-    const categoryCreated = await categoriesRepositoryFake.findByName(categoryProps.name)
-
-
-    expect(categoryCreated).toHaveProperty("id")
-
   })
 
   it("should not be able to create a new category with name exist", async () => {

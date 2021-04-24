@@ -1,5 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import {v4 as uuidV4} from 'uuid'
+import Specification from '@modules/cars/infra/typeorm/entities/Specification';
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 @Entity('users')
 class User{
 
@@ -23,6 +23,15 @@ class User{
 
   @Column()
   avatar : string
+
+  @ManyToMany(() => Specification)
+  @JoinTable(({
+    name : 'specifications_cars',
+    joinColumns : [{name : "car_id"}],
+    inverseJoinColumns : [{name : 'specification_id'}]
+  }))
+  specifications : Specification[]
+
 
   @CreateDateColumn()
   created_at : Date;
