@@ -24,7 +24,6 @@ describe("Create Car", () => {
       license_plate : "ABC_1234"
     })
 
-    expect(car).toHaveProperty("id")
   })
 
   it("should not be able to create a car with exists license plate", async ()=>{

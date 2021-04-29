@@ -23,7 +23,6 @@ describe("Create Rentals", () => {
       expected_return_date: new Date()
     })
 
-    expect(rental).toHaveProperty('id')
     expect(rental).toHaveProperty('start_date')
 
 
