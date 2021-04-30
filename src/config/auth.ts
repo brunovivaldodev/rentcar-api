@@ -1,9 +1,4 @@
-interface AuthConfig{
-  secret : string
+export default {
+  secret_token :"8fed7cb6cb9f4cca6bc6c51be4ddd130",
+  expires_in_token : "15m"
 }
-
-const authConfig : AuthConfig =  {
-  secret :  "8fed7cb6cb9f4cca6bc6c51be4ddd130"
-}
-
-export default authConfig

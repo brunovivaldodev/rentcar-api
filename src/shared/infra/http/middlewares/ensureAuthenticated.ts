@@ -1,4 +1,4 @@
-import authConfig from "@config/auth";
+import auth from "@config/auth";
 import UserRepositories from "@modules/accounts/infra/typeorm/repositories/UserRepositories";
 import AppError from "@shared/errors/AppError";
 import { NextFunction, Request, Response } from "express";
@@ -18,9 +18,8 @@ async function ensureAuthenticated(request: Request, response: Response, next: N
 
   const [, token] = authHeader.split(" ")
 
-  const { secret } = authConfig
   try {
-    const { sub: user_id } = verify(token, secret) as IVerifyOptions
+    const { sub: user_id } = verify(token, auth.secret_token) as IVerifyOptions
     const userRepository = new UserRepositories()
 
     const user = await userRepository.findById(user_id)
