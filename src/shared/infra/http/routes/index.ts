@@ -10,7 +10,7 @@ import AuthenticateRoutes from './authenticate.routes'
 
 const router = Router()
 
-router.use('/session',AuthenticateRoutes)
+router.use('/',AuthenticateRoutes)
 router.use('/users',UserRoutes)
 router.use('/categories',CategoriesRoutes)
 router.use('/specifications',SpecificationsRoutes)

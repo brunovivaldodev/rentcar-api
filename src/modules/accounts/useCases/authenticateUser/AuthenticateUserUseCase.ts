@@ -5,6 +5,7 @@ import {sign} from 'jsonwebtoken'
 import AppError from "@shared/errors/AppError";
 import IUsersTokensRepository from "@modules/accounts/repositories/IUserTokensRepository";
 import auth from "@config/auth";
+import IDateProvider from "@shared/container/providers/DateProvider/IDateProvider";
 
 interface IRequest{
   email : string,
@@ -16,7 +17,8 @@ interface IResponse{
     name : string,
     email : string
   }
-  token : string
+  token : string,
+  refresh_token :string
 }
 @injectable()
 class AuthenticateUserUseCase {
@@ -24,11 +26,14 @@ class AuthenticateUserUseCase {
     @inject('UserRepositories')
     private usersRepository : IUsersRepository,
     @inject('UsersTokenRepository')
-    private usersTokensRepository : IUsersTokensRepository
+    private usersTokensRepository : IUsersTokensRepository,
+    @inject("DayjsDateProvider")
+    private dateProvider : IDateProvider
     ){}
   async execute({email, password} : IRequest) : Promise<IResponse>{
 
     const user =await this.usersRepository.findByEmail(email);
+    const {expires_in_token,secret_refresh_token,secret_token,expires_in_resfresh_token_days,expires_in_resfresh_token} = auth
 
     if(!user){
       throw new AppError('Email or Password Incorret')
@@ -40,9 +45,21 @@ class AuthenticateUserUseCase {
       throw new AppError('Email or Password Incorret')
     }
 
-    const token = sign({},auth.secret_token,{
+    const token = sign({},secret_token,{
       subject : user.id,
-      expiresIn : auth.expires_in_token
+      expiresIn : expires_in_token
+    })
+
+    const refresh_token = sign({email},secret_refresh_token ,{
+      subject : user.id,
+      expiresIn : expires_in_resfresh_token
+    })
+
+    const expires_date = this.dateProvider.addDays(expires_in_resfresh_token_days)
+    await this.usersTokensRepository.create({
+      user_id : user.id,
+      refresh_token ,
+      expires_date
     })
 
      const response : IResponse =  {
@@ -50,7 +67,8 @@ class AuthenticateUserUseCase {
         name : user.name,
         email : user.email
       },
-      token
+      token,
+      refresh_token
     }
 
     return  response
